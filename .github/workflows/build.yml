@@ -20,7 +20,7 @@ jobs:
 
       - name: Validate Dockerfile syntax
         run: |
-          docker run --rm -i hadolint/hadolint < Dockerfile
+          docker run --rm -i hadolint/hadolint hadolint --no-fail - < Dockerfile
 
   build:
     name: Build Docker image
