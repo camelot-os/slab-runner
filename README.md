@@ -32,3 +32,11 @@ default CMD is overridable for automation purpose. You can run tests using:
 ```
 docker run -it slab-runner  python3 /opt/slab-rehosting/slab/examples/cortex-m/stm32/u5a5/demos/sentry-autotest/test_sentry_kernel.py
 ```
+
+## about CI usage
+
+The Sentry kernel e2e pythoh test (`test_sentry_lernel.py`) supports the following argument:
+
+   * `--firmware-path <firmware_bin>`
+
+This argument can be added, in a CI job, in order to pass a previously built firmware to the e2e test. Note that only binary format firmware can be used (hex files not supported). This can be done, for example, using artifacts chaining between jobs or whatever input data passing.

@@ -29,15 +29,20 @@ FROM ubuntu:latest AS slab-runner
 RUN mkdir -p /opt/slab-rehosting
 
 # Copy only the built QEMU slab binary and any required files
+# keeping build dir in order to keep non-fixed python script operationals
 COPY --from=builder /build/slab-rehosting/build/qemu-system-arm /opt/slab-rehosting/build/qemu-system-arm
+# add clean path aside build path
+COPY --from=builder /build/slab-rehosting/build/qemu-system-arm /opt/slab-rehosting/bin/qemu-system-arm
 COPY --from=builder /build/slab-rehosting/slab/python /opt/slab-rehosting/slab/python
 COPY --from=builder /build/slab-rehosting/slab/boards /opt/slab-rehosting/slab/boards
 COPY --from=builder /build/slab-rehosting/slab/examples/cortex-m /opt/slab-rehosting/slab/examples/cortex-m
 
 ENV PYTHONPATH="/opt/slab-rehosting/python"
+# adding qemu-system-arm slab-enabled version to the image path
+ENV PATH="/opt/gtk/bin:$PATH"
 
 # Ensure correct permissions
-RUN chmod +x /opt/slab-rehosting/build/qemu-system-arm
+RUN chmod +x /opt/slab-rehosting/bin/qemu-system-arm
 
 # Minimal runtime environment (if needed)
 RUN apt-get update && apt-get install -y --no-install-recommends \
