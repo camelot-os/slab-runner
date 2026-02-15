@@ -46,7 +46,7 @@ RUN chmod +x /opt/slab-rehosting/bin/qemu-system-arm
 
 # Minimal runtime environment (if needed)
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ca-certificates python3 python3-pip python3-venv python3-yaml \
+    ca-certificates python3 python3-pip python3-venv python3-yaml python3-intelhex \
  && rm -rf /var/lib/apt/lists/*
 
 # Set workdir
@@ -54,4 +54,3 @@ WORKDIR /opt/slab-rehosting
 
 # Default CMD (can be overridden)
 CMD ["/opt/slab-rehosting/qemu-system-arm", "--help"]
-
